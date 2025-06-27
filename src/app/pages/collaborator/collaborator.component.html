@@ -1,1 +1,95 @@
-<p>collaborator works!</p>
+<div class="container my-4">
+  <h1 class="mb-5 text-center mt-5">Lista de Colaboradores</h1>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle text-center">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Edad</th>
+          <th>Teléfono</th>
+          <th>Correo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let colaborador of colaboradores">
+          <td>{{ colaborador.id }}</td>
+          <td>{{ colaborador.nombre_completo }}</td>
+          <td>{{ colaborador.edad }}</td>
+          <td>{{ colaborador.telefono }}</td>
+          <td>{{ colaborador.correo }}</td>
+          <td>
+            <button
+              class="btn btn-success btn-sm me-2"
+              (click)="activarFormularioEdicion(colaborador)"
+            >
+              Editar
+            </button>
+            <button
+              class="btn btn-danger btn-sm"
+              (click)="eliminarColaborador(colaborador.id)"
+            >
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Formulario de edición -->
+  <div *ngIf="editandoColaborador" class="card mt-4">
+    <div class="card-body">
+      <h5 class="card-title">Editar Colaborador</h5>
+
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input
+          id="nombre"
+          type="text"
+          [(ngModel)]="nombreEditado"
+          class="form-control"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="edad" class="form-label">Edad</label>
+        <input
+          id="edad"
+          type="number"
+          [(ngModel)]="edadEditada"
+          class="form-control"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="telefono" class="form-label">Teléfono</label>
+        <input
+          id="telefono"
+          type="text"
+          [(ngModel)]="telefonoEditado"
+          class="form-control"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="correo" class="form-label">Correo</label>
+        <input
+          id="correo"
+          type="email"
+          [(ngModel)]="correoEditado"
+          class="form-control"
+        />
+      </div>
+
+      <button class="btn btn-primary me-2" (click)="guardarEdicion()">
+        Guardar Cambios
+      </button>
+      <button class="btn btn-secondary" (click)="cancelarEdicion()">
+        Cancelar
+      </button>
+    </div>
+  </div>
+</div>

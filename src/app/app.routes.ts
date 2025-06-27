@@ -7,6 +7,11 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/collaborator/collaborator.component'),
     },
     {
+        path: 'newcollaborators',
+        title: 'New Collaborator',
+        loadComponent: () => import('./pages/new-collaborator/new-collaborator.component'),
+    },
+    {
         path: 'country',
         title: ' Country',
         loadComponent: () => import('./pages/country/country.component'),

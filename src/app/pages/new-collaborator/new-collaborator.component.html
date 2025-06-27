@@ -1,0 +1,41 @@
+<div class="container mt-4">
+    <h2 class="mb-4">Nuevo Colaborador</h2>
+    
+    <div *ngIf="exitoCreacion" class="alert alert-success" role="alert">
+        Colaborador creado con éxito.
+      </div>
+      
+    <form (ngSubmit)="guardarColaborador()">
+      <div class="mb-3">
+        <label class="form-label">Nombre completo</label>
+        <input [(ngModel)]="nombre_completo" name="nombre_completo" class="form-control" required>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Edad</label>
+        <input type="number" [(ngModel)]="edad" name="edad" class="form-control" min="18" max="99">
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Teléfono</label>
+        <input [(ngModel)]="telefono" name="telefono" class="form-control">
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Correo</label>
+        <input type="email" [(ngModel)]="correo" name="correo" class="form-control">
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Empresas</label>
+        <select [(ngModel)]="empresa_ids" name="empresa_ids" class="form-select" multiple>
+          <option *ngFor="let empresa of empresas" [value]="empresa.id">
+            {{ empresa.nombre_comercial }}
+          </option>
+        </select>
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Guardar colaborador</button>
+    </form>
+  </div>
+  
