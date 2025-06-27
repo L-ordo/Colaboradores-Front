@@ -30,6 +30,8 @@ export class CountrisService {
     return this.http.delete<Countries>(`${this.baseUrl}/${id}`);
   }
   
-
+  createCountry(data: { nombre: string }): Observable<Countries> {
+    return this.http.post<Countries>(this.baseUrl, data);
+  }
 
 }

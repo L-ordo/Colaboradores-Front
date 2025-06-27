@@ -22,11 +22,6 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/departament/departament.component'),
     },
     {
-        path: 'municipality',
-        title: 'Municipality',
-        loadComponent: () => import('./pages/municipality/municipality.component'),
-    },
-    {
         path: 'company',
         title: 'Company',
         loadComponent: () => import('./pages/company/company.component'),

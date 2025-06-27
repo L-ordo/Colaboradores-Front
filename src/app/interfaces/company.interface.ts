@@ -1,4 +1,5 @@
 export interface Company {
+    id:               number;
     nit:              string;
     razon_social:     string;
     nombre_comercial: string;

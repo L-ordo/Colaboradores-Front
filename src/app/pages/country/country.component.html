@@ -1,47 +1,66 @@
 <div class="container my-4">
-    <h1 class="mb-5 text-center mt-5">Lista de Países</h1>
-  
-    <div class="table-responsive">
-      <table class="table table-bordered table-hover align-middle text-center">
-        <thead class="table-light">
-          <tr>
-            <th>#</th>
-            <th>Nombre</th>
-            <th>Acción</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let country of countries">
-            <td>{{ country.id }}</td>
-            <td *ngIf="!editMode[country.id]">{{ country.nombre }}</td>
-            <td *ngIf="editMode[country.id]">
-              <input type="text" [(ngModel)]="editedName[country.id]" class="form-control" />
-            </td>
-            <td>
-              <!-- Botones normales -->
-              <button *ngIf="!editMode[country.id]" class="btn btn-success btn-sm me-2"
-                (click)="enableEdit(country.id, country.nombre)">
-                Editar país
-              </button>
-  
-              <button *ngIf="!editMode[country.id]" class="btn btn-danger btn-sm"
-                (click)="eliminarPais(country.id)">
-                Eliminar
-              </button>
-  
-              <!-- Botones de edición -->
-              <div *ngIf="editMode[country.id]">
-                <button class="btn btn-primary btn-sm me-2" (click)="saveEdit(country.id)">
-                  Guardar
-                </button>
-                <button class="btn btn-secondary btn-sm" (click)="cancelEdit(country.id)">
-                  Cancelar
-                </button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <h1 class="mb-4 text-center mt-5">Lista de Países</h1>
+
+  <!-- FORMULARIO PARA AGREGAR PAÍS -->
+  <div class="card mb-5">
+    <div class="card-body">
+      <h5 class="card-title mb-3">Agregar nuevo país</h5>
+      <div class="row g-3 align-items-center">
+        <div class="col-md-8">
+          <input type="text" [(ngModel)]="nuevoPaisNombre" class="form-control" placeholder="Nombre del país" />
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-primary w-100" (click)="agregarPais()">Agregar País</button>
+        </div>
+      </div>
     </div>
   </div>
-  
+
+  <!-- LISTA DE PAÍSES -->
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle text-center">
+      <thead class="table-light">
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let country of countries">
+          <td>{{ country.id }}</td>
+
+          <!-- Campo normal o editable -->
+          <td *ngIf="!editMode[country.id]">{{ country.nombre }}</td>
+          <td *ngIf="editMode[country.id]">
+            <input type="text" [(ngModel)]="editedName[country.id]" class="form-control" />
+          </td>
+
+          <!-- Acciones -->
+          <td>
+            <!-- Botones normales -->
+            <button *ngIf="!editMode[country.id]" class="btn btn-success btn-sm me-2"
+              (click)="enableEdit(country.id, country.nombre)">
+              Editar país
+            </button>
+
+            <button *ngIf="!editMode[country.id]" class="btn btn-danger btn-sm"
+              (click)="eliminarPais(country.id)">
+              Eliminar
+            </button>
+
+            <!-- Botones de edición -->
+            <div *ngIf="editMode[country.id]">
+              <button class="btn btn-primary btn-sm me-2" (click)="saveEdit(country.id)">
+                Guardar
+              </button>
+              <button class="btn btn-secondary btn-sm" (click)="cancelEdit(country.id)">
+                Cancelar
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

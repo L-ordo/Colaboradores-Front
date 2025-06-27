@@ -1,1 +1,77 @@
-<p>departament works!</p>
+<div class="container my-4">
+    <h1 class="mb-4 text-center mt-5">Lista de Departamentos</h1>
+  
+    <!-- Formulario para agregar -->
+<div class="card mb-5">
+    <div class="card-body">
+      <h5 class="card-title mb-3">Agregar nuevo departamento</h5>
+      <div class="row g-3 align-items-center">
+        
+        <!-- Nombre del departamento -->
+        <div class="col-md-5">
+          <input type="text" [(ngModel)]="nuevoDepartamentoNombre" class="form-control" placeholder="Nombre del departamento" />
+        </div>
+  
+        <!-- País (select) -->
+        <div class="col-md-4">
+          <select [(ngModel)]="nuevoPaisId" class="form-select">
+            <option [ngValue]="null" disabled selected>Selecciona un país</option>
+            <option *ngFor="let pais of countries" [ngValue]="pais.id">
+              {{ pais.nombre }}
+            </option>
+          </select>
+        </div>
+  
+        <!-- Botón -->
+        <div class="col-md-3">
+          <button class="btn btn-primary w-100" (click)="agregarDepartamento()">Agregar</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  
+  
+    <!-- Tabla -->
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle text-center">
+        <thead class="table-light">
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let d of departments">
+            <td>{{ d.id }}</td>
+  
+            <td *ngIf="!editMode[d.id]">{{ d.nombre }}</td>
+            <td *ngIf="editMode[d.id]">
+              <input type="text" [(ngModel)]="editedDepartment[d.id]" class="form-control" />
+            </td>
+  
+            <td>
+              <button *ngIf="!editMode[d.id]" class="btn btn-success btn-sm me-2" (click)="enableEdit(d.id, d.nombre)">
+                Editar
+              </button>
+  
+              <button *ngIf="!editMode[d.id]" class="btn btn-danger btn-sm" (click)="eliminarDepartamento(d.id)">
+                Eliminar
+              </button>
+  
+              <div *ngIf="editMode[d.id]">
+                <button class="btn btn-primary btn-sm me-2" (click)="saveEdit(d.id)">
+                  Guardar
+                </button>
+                <button class="btn btn-secondary btn-sm" (click)="cancelEdit(d.id)">
+                  Cancelar
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

@@ -1,1 +1,86 @@
-<p>company works!</p>
+<div class="container my-4">
+  <h1 class="mb-4 text-center mt-5">Lista de Empresas</h1>
+
+  <!-- FORMULARIO PARA AGREGAR EMPRESA -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title mb-3">Agregar nueva empresa</h5>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <input type="text" class="form-control" placeholder="NIT" [(ngModel)]="nuevoEmpresa.nit">
+        </div>
+        <div class="col-md-4">
+          <input type="text" class="form-control" placeholder="Razón social" [(ngModel)]="nuevoEmpresa.razon_social">
+        </div>
+        <div class="col-md-4">
+          <input type="text" class="form-control" placeholder="Nombre comercial" [(ngModel)]="nuevoEmpresa.nombre_comercial">
+        </div>
+        <div class="col-md-4">
+          <input type="text" class="form-control" placeholder="Teléfono" [(ngModel)]="nuevoEmpresa.telefono">
+        </div>
+        <div class="col-md-4">
+          <input type="email" class="form-control" placeholder="Correo" [(ngModel)]="nuevoEmpresa.correo">
+        </div>
+
+        <!-- SELECT PAÍS -->
+        <div class="col-md-4">
+          <select class="form-select" [(ngModel)]="nuevoEmpresa.pais_id" (change)="onPaisChange(nuevoEmpresa.pais_id!)">
+            <option [ngValue]="null" disabled selected>Selecciona un país</option>
+            <option *ngFor="let p of paises" [ngValue]="p.id">{{ p.nombre }}</option>
+          </select>
+        </div>
+
+        <!-- SELECT DEPARTAMENTO -->
+        <div class="col-md-4">
+          <select class="form-select" [(ngModel)]="nuevoEmpresa.departamento_id" (change)="onDepartamentoChange(nuevoEmpresa.departamento_id!)">
+            <option [ngValue]="null" disabled selected>Selecciona un departamento</option>
+            <option *ngFor="let d of departamentosFiltrados" [ngValue]="d.id">{{ d.nombre }}</option>
+          </select>
+        </div>
+
+        <!-- SELECT MUNICIPIO -->
+        <div class="col-md-4">
+          <select class="form-select" [(ngModel)]="nuevoEmpresa.municipio_id">
+            <option [ngValue]="null" disabled selected>Selecciona un municipio</option>
+            <option *ngFor="let m of municipiosFiltrados" [ngValue]="m.id">{{ m.nombre }}</option>
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <button class="btn btn-primary w-100" (click)="agregarEmpresa()">Agregar Empresa</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LISTADO DE EMPRESAS -->
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle text-center">
+      <thead class="table-light">
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let empresa of companies">
+          <td>{{ empresa.id }}</td>
+          <td *ngIf="!editMode[empresa.id]">{{ empresa.nombre_comercial }}</td>
+          <td *ngIf="editMode[empresa.id]">
+            <input type="text" [(ngModel)]="editedName[empresa.id]" class="form-control" />
+          </td>
+          <td>
+            <button *ngIf="!editMode[empresa.id]" class="btn btn-success btn-sm me-2" (click)="enableEdit(empresa.id, empresa.nombre_comercial)">Editar</button>
+            <button *ngIf="!editMode[empresa.id]" class="btn btn-danger btn-sm" (click)="eliminarEmpresa(empresa.id)">Eliminar</button>
+
+            <div *ngIf="editMode[empresa.id]">
+              <button class="btn btn-primary btn-sm me-2" (click)="saveEdit(empresa.id)">Guardar</button>
+              <button class="btn btn-secondary btn-sm" (click)="cancelEdit(empresa.id)">Cancelar</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

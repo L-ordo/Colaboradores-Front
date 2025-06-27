@@ -19,5 +19,20 @@ export class CompanyService {
   getCompanies(): Observable<Company[]> {
     return this.http.get<Company[]>(`${this.baseUrl}`);
   }
+
+  // En company.service.ts
+  updateCompany(id: number, data: Partial<Company>): Observable<Company> {
+    return this.http.put<Company>(`${this.baseUrl}/${id}`, data);
+  }
+  
+  deleteCompany(id: number): Observable<Company> {
+    return this.http.delete<Company>(`${this.baseUrl}/${id}`);
+  }
+  
+  createCompany(data: Partial<Company>): Observable<Company> {
+    return this.http.post<Company>(this.baseUrl, data);
+  }
+  
+
   
 }

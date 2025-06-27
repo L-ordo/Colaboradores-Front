@@ -60,6 +60,24 @@ export default class CountryComponent {
       }
     });
   }
+
+  nuevoPaisNombre: string = '';
+
+agregarPais() {
+  const nombre = this.nuevoPaisNombre.trim();
+  if (!nombre) return;
+
+  this.countryService.createCountry({ nombre }).subscribe({
+    next: (res) => {
+      this.countries.push(res); // actualiza la lista
+      this.nuevoPaisNombre = ''; // limpia el input
+    },
+    error: (err) => {
+      console.error('Error al agregar país', err);
+    }
+  });
+}
+
   
 
 }
